@@ -201,7 +201,11 @@ class _DynamicRingState extends State<DynamicRing> {
     return CirculitoSection(
       value: value,
       onHover: () => setState(() => _selectedIndex = index),
-      decoration: CirculitoDecoration.fromColor(_colors[index]),
+      decoration: CirculitoDecoration.fromColor(
+        _colors[index],
+        textItem: TextItem(
+            space: 2, text: const Text("There will always be a difference!")),
+      ),
     );
   }
 

@@ -56,8 +56,22 @@ class _CountDownState extends State<CountDown> {
         ),
         sections: [
           CirculitoSection(
-            value: 1,
-            decoration: CirculitoDecoration.fromColor(_getColor()),
+            value: 0.5,
+            decoration: CirculitoDecoration.fromColor(
+              _colors[0],
+              textItem: TextItem(
+                  space: 2,
+                  text: const Text("There will always be a difference!")),
+            ),
+          ),
+          CirculitoSection(
+            value: 0.5,
+            decoration: CirculitoDecoration.fromColor(
+              _getColor(),
+              textItem: TextItem(
+                  space: 2,
+                  text: const Text("There will always be a difference!")),
+            ),
           )
         ],
         child: Text(

@@ -62,7 +62,7 @@ class _GendersState extends State<Genders> {
       maxSize: maxSize,
       strokeWidth: 70.0,
       key: _circulitoKey,
-      animation: animation,
+      //animation: animation,
       background: background,
       strokeCap: CirculitoStrokeCap.butt,
       direction: CirculitoDirection.clockwise,
@@ -79,16 +79,19 @@ class _GendersState extends State<Genders> {
       value: _malePercentage,
       onHover: () => _changeChildText('Male'),
       onTap: () => _switchText("Male", _malePercentage),
-      decoration: const CirculitoDecoration.fromGradient(
-        LinearGradient(colors: [
+      decoration: CirculitoDecoration.fromGradient(
+        const LinearGradient(colors: [
           Color(0xFF17EAD9),
           Color(0xFF6078EA),
         ]),
-        hoverGradient: LinearGradient(colors: [
+        hoverGradient: const LinearGradient(colors: [
           Colors.lightBlueAccent,
           Colors.blueAccent,
         ]),
         // hoverColor: Colors.blueAccent,
+        textItem: TextItem(
+            space: 2,
+            text: const Text("What is the secret to life in the universe?")),
       ),
     );
   }
@@ -98,12 +101,14 @@ class _GendersState extends State<Genders> {
       value: _femalePercentage,
       onHover: () => _changeChildText('Female'),
       onTap: () => _switchText("Female", _femalePercentage),
-      decoration: const CirculitoDecoration.fromGradient(
-        LinearGradient(colors: [Color(0XFFF54EA2), Color(0xFFFF7676)]),
-        hoverGradient: LinearGradient(colors: [
+      decoration: CirculitoDecoration.fromGradient(
+        const LinearGradient(colors: [Color(0XFFF54EA2), Color(0xFFFF7676)]),
+        hoverGradient: const LinearGradient(colors: [
           Colors.pink,
           Colors.pinkAccent,
         ]),
+        textItem: TextItem(
+            space: 2, text: const Text("There will always be a difference!")),
       ),
     );
   }

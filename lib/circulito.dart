@@ -12,6 +12,7 @@ import 'src/utils/utils.dart';
 
 export 'src/helpers/helpers.dart';
 export 'src/enums/enums.dart';
+export 'src/helpers/circular_text_item.dart';
 
 part 'src/circulito/wrapped_circulito.dart';
 

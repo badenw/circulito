@@ -36,6 +36,8 @@ class CirculitoDecoration {
   /// The border to be painted around `section` or `background`.
   final CirculitoBorder? border;
 
+  final TextItem? textItem;
+
   /// Creates a `decoration` from a solid color. If [hoverColor] is provided, the
   /// section will change to that color when hovered.
   const CirculitoDecoration.fromColor(
@@ -43,6 +45,7 @@ class CirculitoDecoration {
     this.hoverColor,
     this.shadow,
     this.border,
+    this.textItem,
   })  : type = DecorationType.color,
         gradient = null,
         hoverGradient = null;
@@ -54,6 +57,7 @@ class CirculitoDecoration {
     this.hoverGradient,
     this.shadow,
     this.border,
+    this.textItem,
   })  : type = DecorationType.gradient,
         color = null,
         hoverColor = null;

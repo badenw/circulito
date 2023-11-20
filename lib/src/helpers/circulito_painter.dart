@@ -76,7 +76,7 @@ class CirculitoPainter extends CustomPainter {
     required this.selectedIndex,
     this.background,
     this.sectionValues,
-  });
+  }); // : super(children: [], textDirection: TextDirection.ltr);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -180,6 +180,74 @@ class CirculitoPainter extends CustomPainter {
 
       // Prevent moving startAngle.
       if (isBackground) return;
+
+      // Decoration contains text
+      if (decoration.textItem != null) {
+        final dir =
+            decoration.textItem!.direction == CircularTextDirection.clockwise
+                ? -1.0
+                : 1.0;
+        double span = 0;
+        double spacespan = decoration.textItem!.space;
+        double tradius = radius; // -halfStrokeWidth;
+        // Paint Circular Text
+        canvas.save();
+        canvas.translate(size.width / 2, size.height / 2);
+        List<TextPainter> charPainters = [];
+        Text text = decoration.textItem!.text;
+        TextPainter tp;
+        tp = TextPainter(
+            text: TextSpan(text: ".", style: text.style),
+            textDirection: TextDirection.ltr,
+            textWidthBasis: TextWidthBasis.longestLine)
+          ..layout();
+        spacespan = tp.width / tradius;
+        for (final char in text.data!.split("")) {
+          tp = TextPainter(
+              text: TextSpan(text: char, style: text.style),
+              textDirection: TextDirection.ltr,
+              textWidthBasis: TextWidthBasis.longestLine)
+            ..layout();
+          span += tp.width;
+          charPainters.add(tp);
+        }
+        span /= tradius;
+        span += 8 * spacespan; // padding
+        double sstotal = span + spacespan * (charPainters.length - 1);
+        double condence = 1;
+        if (sstotal > sweepAngle) {
+          condence = 1 - (sstotal - sweepAngle) / sstotal;
+        }
+        spacespan *= condence;
+        sstotal *= condence;
+        double angleShift = sweepAngle - sstotal;
+        switch (decoration.textItem!.startAngleAlignment) {
+          case StartAngleAlignment.start:
+          //angleShift = 0;
+          //break;
+          case StartAngleAlignment.center:
+            angleShift /= 2;
+            break;
+          case StartAngleAlignment.end:
+            //angleShift = sstotal;
+            break;
+        }
+        if (dir > 0) {
+          angleShift = sweepAngle - angleShift;
+        }
+        angleShift += -dir * pi / 2;
+        angleShift += -dir * 2 * spacespan;
+        canvas.rotate(startAngle + angleShift);
+        for (int i = 0; i < charPainters.length; i++) {
+          final tp = charPainters[i];
+          final x = -tp.width / 2;
+          final y = dir * tradius - tp.height / 2;
+
+          canvas.rotate(-dir * (condence * tp.width / tradius + spacespan));
+          tp.paint(canvas, Offset(x, y));
+        }
+        canvas.restore();
+      }
 
       // Set new starting angle for next iteration.
       startAngle += sweepAngle;

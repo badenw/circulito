@@ -14,9 +14,15 @@ import 'package:circulito/circulito.dart';
 /// DISCLAIMER: This doesn't pretent to be an exact replica of the Apple
 /// Fitness rings. It is just an example of what can be achieved with
 /// `Circulito`.
-class AppleFitnessRings extends StatelessWidget {
-  /// Creates a widget similar to the Apple Fitness.
+class AppleFitnessRings extends StatefulWidget {
   const AppleFitnessRings({super.key});
+
+  @override
+  State<AppleFitnessRings> createState() => _AppleFitnessRingsState();
+}
+
+class _AppleFitnessRingsState extends State<AppleFitnessRings> {
+  //double value = 0.65; // Initialize your value here
   final _space = 2.0;
   final _maxSize = 400.0;
   final _strokeWidth = 45.0;
@@ -84,6 +90,10 @@ class AppleFitnessRings extends StatelessWidget {
 
     final section = CirculitoSection(
       value: value,
+      onTap: () {
+        value += 0.01;
+        setState(() {});
+      }, // Update the state value
       hoverStrokeMultiplier: .95,
       // Could be SweepGradient too.
       decoration: CirculitoDecoration.fromGradient(
@@ -93,6 +103,7 @@ class AppleFitnessRings extends StatelessWidget {
           end: Alignment.centerLeft,
         ),
         shadow: const CirculitoShadow(color: Color(0xFF18181a), spreading: 4),
+        textItem: TextItem(text: Text('Value is $value'), space: 3),
       ),
     );
 
